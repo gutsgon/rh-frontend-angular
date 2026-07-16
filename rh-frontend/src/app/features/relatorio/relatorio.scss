@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+}
+
+.descricao {
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #b3261e;
+}
+
+.acoes-pdf {
+  margin-bottom: 0.75rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+}
+
+.preview {
+  width: 100%;
+  height: 75vh;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}

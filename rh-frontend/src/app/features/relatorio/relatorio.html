@@ -1,0 +1,29 @@
+<div class="header">
+  <h1>Relatório de Funcionários</h1>
+  <button mat-flat-button color="primary" [disabled]="gerando()" (click)="gerar()">
+    @if (gerando()) {
+      <mat-spinner diameter="18" />
+    } @else {
+      <mat-icon>picture_as_pdf</mat-icon>
+    }
+    Gerar relatório
+  </button>
+</div>
+
+<p class="descricao">
+  Gera um PDF com Nome, Cargo, Data de Admissão, Salário e Status de todos os funcionários cadastrados.
+</p>
+
+@if (erro()) {
+  <p class="error">{{ erro() }}</p>
+}
+
+@if (pdfUrl()) {
+  <div class="acoes-pdf">
+    <a mat-stroked-button [href]="downloadUrl()" download="relatorio-funcionarios.pdf">
+      <mat-icon>download</mat-icon>
+      Baixar PDF
+    </a>
+  </div>
+  <iframe [src]="pdfUrl()" class="preview" title="Relatório de funcionários"></iframe>
+}

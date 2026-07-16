@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{ modoEdicao ? 'Editar férias' : 'Cadastrar férias' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="salvar()">
+  <mat-dialog-content class="conteudo">
+    <mat-form-field appearance="outline">
+      <mat-label>Funcionário</mat-label>
+      <mat-select formControlName="idFuncionario" required [disabled]="modoEdicao">
+        @for (f of data.funcionarios; track f.id) {
+          <mat-option [value]="f.id">{{ f.nome }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Data de início</mat-label>
+      <input matInput type="date" formControlName="dataInicio" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Data de término</mat-label>
+      <input matInput type="date" formControlName="dataFim" required />
+    </mat-form-field>
+
+    @if (erro()) {
+      <p class="error">{{ erro() }}</p>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="salvando()">
+      @if (salvando()) {
+        <mat-spinner diameter="18" />
+      } @else {
+        Salvar
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

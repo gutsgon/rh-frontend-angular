@@ -1,0 +1,106 @@
+<div class="header">
+  <a mat-icon-button routerLink="/funcionarios" title="Voltar">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <h1>Detalhes do funcionário</h1>
+</div>
+
+@if (carregando()) {
+  <div class="loading">
+    <mat-spinner diameter="36" />
+  </div>
+} @else if (erro()) {
+  <p class="error">{{ erro() }}</p>
+} @else if (detalhes()) {
+  @let d = detalhes()!;
+  <mat-card appearance="outlined" class="info-card">
+    <mat-card-content>
+      <div class="linha">
+        <span class="rotulo">Nome</span>
+        <span class="valor">{{ d.nome }}</span>
+      </div>
+      <div class="linha">
+        <span class="rotulo">Cargo</span>
+        <span class="valor">{{ d.cargos[0]?.nome ?? '-' }}</span>
+      </div>
+      <div class="linha">
+        <span class="rotulo">Data de Admissão</span>
+        <span class="valor">{{ d.dataAdmissao | date: 'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="linha">
+        <span class="rotulo">Salário</span>
+        <span class="valor">{{ d.salario | number: '1.2-2' }}</span>
+      </div>
+      <div class="linha">
+        <span class="rotulo">Status</span>
+        <span class="valor">
+          <mat-chip-set>
+            <mat-chip [class.status-ativo]="d.status" [class.status-inativo]="!d.status">
+              {{ d.status ? 'Ativo' : 'Inativo' }}
+            </mat-chip>
+          </mat-chip-set>
+        </span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-flat-button color="primary" [routerLink]="['/funcionarios', id, 'editar']">
+        <mat-icon>edit</mat-icon>
+        Editar
+      </a>
+      @if (d.status) {
+        <button mat-stroked-button color="warn" [disabled]="desligando()" (click)="desligar()">
+          <mat-icon>person_remove</mat-icon>
+          Desligar
+        </button>
+      }
+    </mat-card-actions>
+  </mat-card>
+
+  <h2>Férias</h2>
+  @if (ferias().length === 0) {
+    <p>Nenhum registro de férias para este funcionário.</p>
+  } @else {
+    <table mat-table [dataSource]="ferias()" class="mat-elevation-z1">
+      <ng-container matColumnDef="dataInicio">
+        <th mat-header-cell *matHeaderCellDef>Início</th>
+        <td mat-cell *matCellDef="let f">{{ f.dataInicio | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dataFim">
+        <th mat-header-cell *matHeaderCellDef>Fim</th>
+        <td mat-cell *matCellDef="let f">{{ f.dataFim | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let f">{{ f.status }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="colunasFerias"></tr>
+      <tr mat-row *matRowDef="let row; columns: colunasFerias"></tr>
+    </table>
+  }
+
+  <h2>Histórico de alterações</h2>
+  @if (historico().length === 0) {
+    <p>Nenhuma alteração registrada para este funcionário.</p>
+  } @else {
+    <table mat-table [dataSource]="historico()" class="mat-elevation-z1">
+      <ng-container matColumnDef="dataAlteracao">
+        <th mat-header-cell *matHeaderCellDef>Data/Hora</th>
+        <td mat-cell *matCellDef="let h">{{ h.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="campoAlterado">
+        <th mat-header-cell *matHeaderCellDef>Campo</th>
+        <td mat-cell *matCellDef="let h">{{ h.campoAlterado }}</td>
+      </ng-container>
+      <ng-container matColumnDef="valorAntigo">
+        <th mat-header-cell *matHeaderCellDef>Valor antigo</th>
+        <td mat-cell *matCellDef="let h">{{ h.valorAntigo }}</td>
+      </ng-container>
+      <ng-container matColumnDef="valorNovo">
+        <th mat-header-cell *matHeaderCellDef>Valor novo</th>
+        <td mat-cell *matCellDef="let h">{{ h.valorNovo }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="colunasHistorico"></tr>
+      <tr mat-row *matRowDef="let row; columns: colunasHistorico"></tr>
+    </table>
+  }
+}

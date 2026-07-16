@@ -1,0 +1,46 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+}
+
+.filtro-cargo {
+  width: 260px;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.error {
+  color: #b3261e;
+}
+
+.status-ativo {
+  background-color: #d7f5dd !important;
+  color: #0b5a1c !important;
+}
+
+.status-inativo {
+  background-color: #f5d7d7 !important;
+  color: #7a1414 !important;
+}
