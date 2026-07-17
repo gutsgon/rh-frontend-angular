@@ -1,0 +1,61 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.error {
+  color: #b3261e;
+}
+
+.info-card {
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.linha {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  .rotulo {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .valor {
+    font-weight: 500;
+  }
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.status-ativo {
+  background-color: #d7f5dd !important;
+  color: #0b5a1c !important;
+}
+
+.status-inativo {
+  background-color: #f5d7d7 !important;
+  color: #7a1414 !important;
+}

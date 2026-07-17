@@ -1,0 +1,68 @@
+<div class="header">
+  <h1>Funcionários cadastrados</h1>
+  <a mat-flat-button color="primary" routerLink="/funcionarios/novo">
+    <mat-icon>person_add</mat-icon>
+    Novo funcionário
+  </a>
+</div>
+
+<mat-card class="stat-card" appearance="outlined">
+  <mat-card-content>
+    <span class="stat-label">Salário médio</span>
+    <span class="stat-value">
+      @if (salarioMedio() !== null) {
+        {{ salarioMedio() | number: '1.2-2' }}
+      } @else {
+        —
+      }
+    </span>
+  </mat-card-content>
+</mat-card>
+
+@if (carregando()) {
+  <div class="loading">
+    <mat-spinner diameter="36" />
+  </div>
+} @else if (erro()) {
+  <p class="error">{{ erro() }}</p>
+} @else if (funcionarios().length === 0) {
+  <p>Nenhum funcionário cadastrado ainda.</p>
+} @else {
+  <table mat-table [dataSource]="funcionarios()" class="mat-elevation-z1">
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let f">{{ f.nome }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dataAdmissao">
+      <th mat-header-cell *matHeaderCellDef>Data de Admissão</th>
+      <td mat-cell *matCellDef="let f">{{ f.dataAdmissao | date: 'dd/MM/yyyy' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="salario">
+      <th mat-header-cell *matHeaderCellDef>Salário</th>
+      <td mat-cell *matCellDef="let f">{{ f.salario | number: '1.2-2' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let f">
+        <mat-chip-set>
+          <mat-chip [class.status-ativo]="f.status" [class.status-inativo]="!f.status">
+            {{ f.status ? 'Ativo' : 'Inativo' }}
+          </mat-chip>
+        </mat-chip-set>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let f">
+        <a mat-button [routerLink]="['/funcionarios', f.id]">Ver detalhes</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+    <tr mat-row *matRowDef="let row; columns: colunas"></tr>
+  </table>
+}

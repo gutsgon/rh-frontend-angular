@@ -1,0 +1,39 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav {
+  display: flex;
+  gap: 0.25rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .active-link {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}
+
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
